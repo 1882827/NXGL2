@@ -935,6 +935,27 @@ end)
 
 local tabMisc = window:AddTab("Player")
 
+local startTime = tick()
+
+local function startStopwatch(label)
+    task.spawn(function()
+        while true do
+            local currentTime = tick()
+            local elapsedTime = currentTime - startTime
+            local days = math.floor(elapsedTime / (24 * 3600))
+            local hours = math.floor((elapsedTime % (24 * 3600)) / 3600)
+            local minutes = math.floor((elapsedTime % 3600) / 60)
+            local seconds = math.floor(elapsedTime % 60)
+
+            label.Text = string.format("%dd %dh %dm %ds", days, hours, minutes, seconds)
+            task.wait(1)
+        end
+    end)
+end
+
+local timeLabel = tabMisc:AddLabel("0d 0h 0m 0s")
+startStopwatch(timeLabel)
+
 local antiAFKEnabled = true
 tabMisc:AddSwitch("Anti-AFK System", function(bool)
     antiAFKEnabled = bool
