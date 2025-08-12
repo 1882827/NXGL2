@@ -954,6 +954,8 @@ local function startStopwatch(label)
 end
 
 local timeLabel = tabMisc:AddLabel("0d 0h 0m 0s")
+timeLabel.TextSize = 25
+
 startStopwatch(timeLabel)
 
 local antiAFKEnabled = true
